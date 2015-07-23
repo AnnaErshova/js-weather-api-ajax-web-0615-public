@@ -1,7 +1,9 @@
 function makeAjaxRequest(url, callback){
   $.ajax({
-    url: url
-  }).done(callback)
+    url: url,
+    dataType: 'jsonp',
+    success: callback
+  })
 };
 
 function getHours(json) {
@@ -9,7 +11,7 @@ function getHours(json) {
     return forecast.FCTTIME.hour;
   });
 };
-function getFahrenheits(json) {
+function getFarenheits(json) {
   return json.hourly_forecast.map(function(forecast){
     return forecast.temp.english;
   });
@@ -20,7 +22,7 @@ function generateDataSet(hours, fahrenheits){
     labels: hours,
     datasets: [
         {
-            label: "NYC Hourly Weather Forecast",
+            label: "Hourly Weather for New York",
             fillColor: "rgba(220,220,220,0.2)",
             strokeColor: "rgba(220,220,220,1)",
             pointColor: "rgba(220,220,220,1)",
