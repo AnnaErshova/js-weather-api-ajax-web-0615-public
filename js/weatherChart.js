@@ -11,13 +11,26 @@ function getHours(json) {
     return forecast.FCTTIME.hour;
   });
 };
+
 function getFarenheits(json) {
   return json.hourly_forecast.map(function(forecast){
-    return forecast.temp.english;
+    return forecast.temp.metric;
   });
 };
 
-function generateDataSet(hours, fahrenheits){
+function getHumidity(json) {
+  return json.hourly_forecast.map(function(forecast){
+    return forecast.humidity;
+  });
+};
+
+// function getHeatIndex(json) {
+//   return json.hourly_forecast.map(function(forecast){
+//     return forecast.feelslike.metric;
+//   });
+// };
+
+function generateDataSet(hours, fahrenheits, humidity){
   return {
     labels: hours,
     datasets: [
@@ -31,6 +44,28 @@ function generateDataSet(hours, fahrenheits){
             pointHighlightStroke: "rgba(220,220,220,1)",
             data: fahrenheits
         },
+
+        {
+            label: "Hourly Humidity for New York",
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: humidity
+        },
+
+        // {
+        //     label: "Hourly Heat Index for New York",
+        //     fillColor: "rgba(220,220,220,0.2)",
+        //     strokeColor: "rgba(220,220,220,1)",
+        //     pointColor: "rgba(220,220,220,1)",
+        //     pointStrokeColor: "#fff",
+        //     pointHighlightFill: "#fff",
+        //     pointHighlightStroke: "rgba(220,220,220,1)",
+        //     data: heatindex
+        // }
     ]
   };
 };
